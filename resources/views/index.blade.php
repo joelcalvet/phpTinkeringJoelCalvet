@@ -1,10 +1,6 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Demo PHP</title>
-</head>
-<body>
+<?php require "layout/html_header.blade.php"; ?>
+<?php require "layout/nav.blade.php"; ?>
+
 <h1>
     <?php
     echo $greeting . " World!<br>";
@@ -45,5 +41,5 @@
     <?php endforeach; ?>
 </ul>
 <p> Agafem la peli 3: <?= $films[2]['name'] ?></p>
-</body>
-</html>
+
+<?php require "layout/footer.blade.php"; ?>

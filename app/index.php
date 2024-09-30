@@ -38,8 +38,8 @@
             "year" => "1968",
         ]
     ];
-    var_dump($films);
-
+//    var_dump($films);
+//
     function filterByDirector($films, $director) {
         $filteredDirectors = [];
         foreach ($films as $film) {
