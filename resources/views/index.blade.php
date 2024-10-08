@@ -40,7 +40,7 @@
                             <?=$film->director;?>
                     </td>
                     <td>
-                            <?=$film->releaseYear;?>
+                            <?=$film->year;?>
                     </td>
                 </tr>
             <?php endforeach; ?>

@@ -46,29 +46,29 @@ $greeting = "Hello";
     //consultem els registres de la taula films de la bd utilitzant App
     $films = App::get('database')->selectAll('films');
 
-    function filterByDirector($films, $director) {
-        $filteredDirectors = [];
-        foreach ($films as $film) {
-            if ($film["director"] === $director) {
-                $filteredDirectors[] = $film;
-            }
-        }
-        return $filteredDirectors;
-    }
-    //buscar les pelis a partir del 2000
-    function filterByYear($films) {
-        $filteredDirectors = [];
-        foreach ($films as $film) {
-            if ($film["year"] >= 2000) {
-                $filteredDirectors[] = $film;
-            }
-        }
-        return $filteredDirectors;
-    }
-
-    $filteredFilms = array_filter($films, function ($film) {
-        return $film["year"] >= 2010 && $film["year"] <= 2020;
-    });
+//    function filterByDirector($films, $director) {
+//        $filteredDirectors = [];
+//        foreach ($films as $film) {
+//            if ($film["director"] === $director) {
+//                $filteredDirectors[] = $film;
+//            }
+//        }
+//        return $filteredDirectors;
+//    }
+//    //buscar les pelis a partir del 2000
+//    function filterByYear($films) {
+//        $filteredDirectors = [];
+//        foreach ($films as $film) {
+//            if ($film["year"] >= 2000) {
+//                $filteredDirectors[] = $film;
+//            }
+//        }
+//        return $filteredDirectors;
+//    }
+//
+//    $filteredFilms = array_filter($films, function ($film) {
+//        return $film["year"] >= 2010 && $film["year"] <= 2020;
+//    });
 
     //cridem a la vista
     require '../resources/views/index.blade.php';
