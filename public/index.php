@@ -1,8 +1,10 @@
 <?php
 //require "app/index.php";
-//require "resources/views/index.blade.php";
+//require "resources/views/index_old.blade.php";
 
 use Core\App;
+
+// mirar info del php del sistema en phpinfo();
 
 //carreguem el fitxer autoload que carrega les dependencies definides al composer.json
 //i les classes que es troben als espais de noms del projecte
