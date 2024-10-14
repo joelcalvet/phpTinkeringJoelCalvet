@@ -46,7 +46,7 @@ class FilmController
 
         //si no ens passen cap peli mostrar 404
         if (!$film) {
-            require '../resources/views/errors/404.php';
+            require '../../resources/views/errors/404.blade.php';
             return;
         }
 
