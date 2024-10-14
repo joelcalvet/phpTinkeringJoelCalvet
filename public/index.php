@@ -1,5 +1,5 @@
 <?php
-//require "app/index.php";
+//require "App/index_old.php";
 //require "resources/views/index_old.blade.php";
 
 use Core\App;
