@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Film</title>
+    <title>Eliminar Cançó Metal</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
@@ -56,31 +56,7 @@
         h1 {
             color: #f8f9fa;
             font-size: 2rem;
-            text-align: center;
             margin-bottom: 20px;
-        }
-
-        /* Estil per a la secció dels inputs */
-        .form-group {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
-        .form-label {
-            flex: 1;
-            text-align: left;
-            color: #f8f9fa;
-        }
-
-        .form-input {
-            flex: 2;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            background-color: #2a2a2a;
-            color: #f8f9fa;
         }
 
         /* Botons personalitzats */
@@ -96,6 +72,23 @@
 
         .btn-custom:hover {
             background-color: #d85f00;
+        }
+
+        /* Estil per al link de cancel·lar */
+        .link-cancel {
+            display: inline-block;
+            margin-top: 10px;
+            color: #f96b00; /* Color del link */
+            text-decoration: none; /* Sense subratllat */
+            padding: 10px 20px;
+            border: 2px solid #f96b00; /* Bord de color */
+            border-radius: 30px; /* Bordes arrodonits */
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .link-cancel:hover {
+            background-color: #f96b00; /* Color de fons en hover */
+            color: #ffffff; /* Color del text en hover */
         }
 
         /* Footer sempre a la part inferior */
@@ -115,7 +108,8 @@
 <nav class="navbar navbar-expand-lg navbar-dark">
     <div class="container-fluid">
         <a class="navbar-brand mx-2" href="#">Projecte MVC</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
@@ -136,28 +130,13 @@
 
 <!-- Contingut Principal -->
 <div class="main-container">
-    <h1>Edita la Pel·lícula</h1>
-    <form action="/update" method="POST">
-        <input type="hidden" name="id" value="<?= htmlspecialchars($film->id) ?>" class="mt-1 block w-full border border-gray-300 rounded-md p-2">
-
-        <div class="form-group">
-            <label for="name" class="form-label">Títol:</label>
-            <input type="text" id="name" name="name" value="<?= htmlspecialchars($film->name) ?>" class="form-input" required>
-        </div>
-
-        <div class="form-group">
-            <label for="director" class="form-label">Director:</label>
-            <input type="text" id="director" name="director" value="<?= htmlspecialchars($film->director) ?>" class="form-input" required>
-        </div>
-
-        <div class="form-group">
-            <label for="year" class="form-label">Any:</label>
-            <input type="number" id="year" name="year" value="<?= htmlspecialchars($film->year) ?>" class="form-input" required>
-        </div>
-
-        <button type="submit" class="btn-custom">Editar</button>
+    <h1>Eliminar Cançó Metal</h1>
+    <p>Vols eliminar la cançó "<?= htmlspecialchars($song->NomCanso) ?>"?</p>
+    <form action="/metal/destroy" method="POST" class="mt-4">
+        <input type="hidden" name="idCanso" value="<?= $song->idCanso ?>">
+        <button type="submit" class="btn-custom">Eliminar</button>
     </form>
-    <a href="/films" class="text-gray-500 hover:underline mt-4 block">Torna</a>
+    <a href="/metal" class="link-cancel">Cancel·la</a>
 </div>
 
 <!-- Footer -->

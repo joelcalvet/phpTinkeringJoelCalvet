@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Film</title>
+    <title>Cançons Metal</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
@@ -20,7 +20,7 @@
             align-items: center;
         }
 
-        /* Navbar fixa */
+        /* Navbar fixa i reduïda */
         .navbar {
             background-color: #1f1f1f;
             color: #f8f9fa;
@@ -60,42 +60,59 @@
             margin-bottom: 20px;
         }
 
-        /* Estil per a la secció dels inputs */
-        .form-group {
+        /* Centrar botons */
+        .btn-container {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
-        .form-label {
-            flex: 1;
-            text-align: left;
-            color: #f8f9fa;
-        }
-
-        .form-input {
-            flex: 2;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            background-color: #2a2a2a;
-            color: #f8f9fa;
+            justify-content: center;
+            margin-bottom: 20px;
         }
 
         /* Botons personalitzats */
-        .btn-custom {
+        .btn-primary-custom {
             background-color: #f96b00;
             border: none;
             color: #ffffff;
             padding: 10px 20px;
             border-radius: 30px;
             transition: background-color 0.3s ease;
+        }
+
+        .btn-primary-custom:hover {
+            background-color: #d85f00;
+        }
+
+        .action-link {
+            color: #f96b00;
+        }
+
+        .action-link:hover {
+            color: #d85f00;
+        }
+
+        /* Estil de la taula */
+        .table-container {
+            overflow-x: auto;
             width: 100%;
         }
 
-        .btn-custom:hover {
-            background-color: #d85f00;
+        table {
+            color: #f8f9fa;
+            width: 100%;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            vertical-align: middle;
+        }
+
+        th {
+            background-color: #333333;
+            color: #f8f9fa;
+        }
+
+        tr:hover {
+            background-color: #2a2a2a;
         }
 
         /* Footer sempre a la part inferior */
@@ -136,28 +153,45 @@
 
 <!-- Contingut Principal -->
 <div class="main-container">
-    <h1>Edita la Pel·lícula</h1>
-    <form action="/update" method="POST">
-        <input type="hidden" name="id" value="<?= htmlspecialchars($film->id) ?>" class="mt-1 block w-full border border-gray-300 rounded-md p-2">
-
-        <div class="form-group">
-            <label for="name" class="form-label">Títol:</label>
-            <input type="text" id="name" name="name" value="<?= htmlspecialchars($film->name) ?>" class="form-input" required>
-        </div>
-
-        <div class="form-group">
-            <label for="director" class="form-label">Director:</label>
-            <input type="text" id="director" name="director" value="<?= htmlspecialchars($film->director) ?>" class="form-input" required>
-        </div>
-
-        <div class="form-group">
-            <label for="year" class="form-label">Any:</label>
-            <input type="number" id="year" name="year" value="<?= htmlspecialchars($film->year) ?>" class="form-input" required>
-        </div>
-
-        <button type="submit" class="btn-custom">Editar</button>
-    </form>
-    <a href="/films" class="text-gray-500 hover:underline mt-4 block">Torna</a>
+    <h1>Cançons Metal</h1>
+    <div class="btn-container">
+        <a href="/metal/create" class="btn btn-primary-custom">Afegeix una Nova Cançó</a>
+    </div>
+    <div class="table-container">
+        <table class="table table-dark table-striped">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Títol</th>
+                <th>Banda</th>
+                <th>Data de Creació</th>
+                <th>Actiu</th>
+                <th class="text-center">Accions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php if (empty($songs)): ?>
+            <tr>
+                <td colspan="6" class="text-center">No hi ha cançons disponibles.</td>
+            </tr>
+            <?php else: ?>
+                <?php foreach ($songs as $song): ?>
+            <tr>
+                <td><?= htmlspecialchars($song->idCanso) ?></td>
+                <td><?= htmlspecialchars($song->NomCanso) ?></td>
+                <td><?= htmlspecialchars($song->NomBanda) ?></td>
+                <td><?= htmlspecialchars($song->DataCreacio) ?></td>
+                <td><?= $song->SonActius ? 'Sí' : 'No' ?></td>
+                <td class="text-center">
+                    <a href="/metal/edit/<?= $song->idCanso ?>" class="action-link me-3">Editar</a>
+                    <a href="/metal/delete/<?= $song->idCanso ?>" class="text-danger">Eliminar</a>
+                </td>
+            </tr>
+            <?php endforeach; ?>
+            <?php endif; ?>
+            </tbody>
+        </table>
+    </div>
 </div>
 
 <!-- Footer -->

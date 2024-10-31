@@ -1,47 +1,204 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="ca">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Films</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-</head>
-<body class="bg-gray-100 p-8">
-<div class="max-w-4xl mx-auto bg-white shadow-md rounded-lg p-6">
-    <h1 class="text-3xl font-bold mb-4">Films</h1>
-    <a href="/create" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">Add New Film</a>
-    <table class="min-w-full mt-4 bg-white border border-gray-300">
-        <thead>
-        <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
-            <th class="py-3 px-6 text-left">ID</th>
-            <th class="py-3 px-6 text-left">Title</th>
-            <th class="py-3 px-6 text-left">Director</th>
-            <th class="py-3 px-6 text-left">Year</th>
-            <th class="py-3 px-6 text-center">Actions</th>
-        </tr>
-        </thead>
-        <tbody class="text-gray-600 text-sm font-light">
-        <?php if (empty($films)): ?>
-        <tr>
-            <td colspan="5" class="py-3 px-6 text-center">No hi ha pelis disponibles.</td>
-        </tr>
-        <?php else: ?>
-            <?php foreach ($films as $film): ?>
-        <tr class="border-b border-gray-200 hover:bg-gray-100">
-            <td class="py-3 px-6"><?=$film['id'] ?></td>
-            <td class="py-3 px-6"><?= htmlspecialchars($film['name']) ?></td>
-            <td class="py-3 px-6"><?= htmlspecialchars($film['director']) ?></td>
-            <td class="py-3 px-6"><?= htmlspecialchars($film['year']) ?></td>
-            <td class="py-3 px-6 text-center">
-                <a href="/edit/<?= $film['id'] ?>" class="text-blue-500 hover:text-blue-700 mr-4">Edit</a>
-                <a href="/delete/<?= $film['id'] ?>" class="text-red-500 hover:text-red-700 ">Delete</a>
-            </td>
-        </tr>
-        <?php endforeach; ?>
-        <?php endif; ?>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Disseny general i colors */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #121212;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
 
-        </tbody>
-    </table>
+        /* Navbar fixa i reduïda */
+        .navbar {
+            background-color: #1f1f1f;
+            color: #f8f9fa;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 8px 0;
+        }
+
+        .navbar-brand, .nav-link {
+            color: #f8f9fa !important;
+            font-size: 1rem;
+        }
+
+        .navbar-brand:hover, .nav-link:hover {
+            color: #f96b00 !important;
+        }
+
+        /* Ajust de margin per evitar superposició amb la navbar */
+        .main-container {
+            margin-top: 60px;
+            background-color: #1e1e1e;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 700px;
+            text-align: center;
+        }
+
+        /* Títol de la pàgina */
+        h1 {
+            color: #f8f9fa;
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* Centrar botons */
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        /* Botons personalitzats */
+        .btn-primary-custom {
+            background-color: #f96b00;
+            border: none;
+            color: #ffffff;
+            padding: 10px 20px;
+            border-radius: 30px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-primary-custom:hover {
+            background-color: #d85f00;
+        }
+
+        .action-link {
+            color: #f96b00;
+        }
+
+        .action-link:hover {
+            color: #d85f00;
+        }
+
+        /* Estil de la taula */
+        .table-container {
+            overflow-x: auto;
+            width: 100%;
+        }
+
+        table {
+            color: #f8f9fa;
+            width: 100%;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            vertical-align: middle;
+        }
+
+        th {
+            background-color: #333333;
+            color: #f8f9fa;
+        }
+
+        tr:hover {
+            background-color: #2a2a2a;
+        }
+
+        /* Footer sempre a la part inferior */
+        footer {
+            background-color: #1f1f1f;
+            color: #f8f9fa;
+            padding: 20px 0;
+            text-align: center;
+            margin-top: auto;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header -->
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand mx-2" href="#">Projecte MVC</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Inici</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/films">Pel·lícules</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/metal">Cançons</a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Contingut Principal -->
+<div class="main-container">
+    <h1>Films</h1>
+    <div class="btn-container">
+        <a href="/create" class="btn btn-primary-custom">Afegeix una Nova Pel·lícula</a>
+    </div>
+    <div class="table-container">
+        <table class="table table-dark table-striped">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Títol</th>
+                <th>Director</th>
+                <th>Any</th>
+                <th class="text-center">Accions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php if (empty($films)): ?>
+            <tr>
+                <td colspan="5" class="text-center">No hi ha pel·lícules disponibles.</td>
+            </tr>
+            <?php else: ?>
+                <?php foreach ($films as $film): ?>
+            <tr>
+                <td><?= $film['id'] ?></td>
+                <td><?= htmlspecialchars($film['name']) ?></td>
+                <td><?= htmlspecialchars($film['director']) ?></td>
+                <td><?= htmlspecialchars($film['year']) ?></td>
+                <td class="text-center">
+                    <a href="/edit/<?= $film['id'] ?>" class="action-link me-3">Editar</a>
+                    <a href="/delete/<?= $film['id'] ?>" class="text-danger">Eliminar</a>
+                </td>
+            </tr>
+            <?php endforeach; ?>
+            <?php endif; ?>
+            </tbody>
+        </table>
+    </div>
 </div>
+
+<!-- Footer -->
+<footer>
+    <p>&copy; 2024 Creat per Joel Calvet Michavila. Tots els drets reservats.</p>
+</footer>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -28,7 +28,7 @@ class FilmController
         //cridem funcio create del model
         Film::create($data);
         //retornar a la vista principal
-        header('location: /');
+        header('location: /films');
         exit;
     }
 
@@ -37,7 +37,7 @@ class FilmController
     {
         //si no ens passen la id fem redirect
         if ($id === null) {
-            header('location: /');
+            header('location: /films');
             exit;
         }
 
@@ -61,7 +61,7 @@ class FilmController
         Film::update($id, $data);
 
         //retonem a la pàgina principal
-        header('location: /');
+        header('location: /films');
         exit;
     }
 
@@ -70,7 +70,7 @@ class FilmController
     {
         //si no ens passen la id fem redirect
         if ($id === null) {
-            header('location: /');
+            header('location: /films');
             exit;
         }
 
@@ -88,7 +88,7 @@ class FilmController
         Film::delete($id);
 
         //retornar a la vista
-        header('location: /');
+        header('location: /films');
     }
 
 

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Film</title>
+    <title>Edita la Cançó Metal</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
@@ -115,7 +115,8 @@
 <nav class="navbar navbar-expand-lg navbar-dark">
     <div class="container-fluid">
         <a class="navbar-brand mx-2" href="#">Projecte MVC</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
@@ -136,28 +137,38 @@
 
 <!-- Contingut Principal -->
 <div class="main-container">
-    <h1>Edita la Pel·lícula</h1>
-    <form action="/update" method="POST">
-        <input type="hidden" name="id" value="<?= htmlspecialchars($film->id) ?>" class="mt-1 block w-full border border-gray-300 rounded-md p-2">
+    <h1>Edita la Cançó Metal</h1>
+    <form action="/metal/update" method="POST">
+        <input type="hidden" name="idCanso" value="<?= htmlspecialchars($song->idCanso) ?>"
+               class="mt-1 block w-full border border-gray-300 rounded-md p-2">
 
         <div class="form-group">
-            <label for="name" class="form-label">Títol:</label>
-            <input type="text" id="name" name="name" value="<?= htmlspecialchars($film->name) ?>" class="form-input" required>
+            <label for="NomCanso" class="form-label">Títol:</label>
+            <input type="text" id="NomCanso" name="NomCanso" value="<?= htmlspecialchars($song->NomCanso) ?>"
+                   class="form-input" required>
         </div>
 
         <div class="form-group">
-            <label for="director" class="form-label">Director:</label>
-            <input type="text" id="director" name="director" value="<?= htmlspecialchars($film->director) ?>" class="form-input" required>
+            <label for="NomBanda" class="form-label">Banda:</label>
+            <input type="text" id="NomBanda" name="NomBanda" value="<?= htmlspecialchars($song->NomBanda) ?>"
+                   class="form-input" required>
         </div>
 
         <div class="form-group">
-            <label for="year" class="form-label">Any:</label>
-            <input type="number" id="year" name="year" value="<?= htmlspecialchars($film->year) ?>" class="form-input" required>
+            <label for="DataCreacio" class="form-label">Data de Creació:</label>
+            <input type="date" id="DataCreacio" name="DataCreacio" value="<?= htmlspecialchars($song->DataCreacio) ?>"
+                   class="form-input" required>
+        </div>
+
+        <div class="form-group">
+            <label for="SonActius" class="form-label">Actiu:</label>
+            <input type="checkbox" id="SonActius" name="SonActius"
+                   class="form-input" <?= $song->SonActius ? 'checked' : '' ?>>
         </div>
 
         <button type="submit" class="btn-custom">Editar</button>
     </form>
-    <a href="/films" class="text-gray-500 hover:underline mt-4 block">Torna</a>
+    <a href="/metal" class="text-gray-500 hover:underline mt-4 block">Torna</a>
 </div>
 
 <!-- Footer -->
